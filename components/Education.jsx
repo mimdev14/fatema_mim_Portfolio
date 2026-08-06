@@ -5,7 +5,7 @@ import { FiExternalLink } from 'react-icons/fi';
 
 const timeline = [
   {
-    hash: 'a1f9c2',
+  
     title: 'Bachelor of Science in Computer Science & Engineering',
     org: 'National University, Bangladesh',
     period: 'Graduated 2026',
@@ -13,15 +13,15 @@ const timeline = [
     link: null,
   },
   {
-    hash: 'e7b410',
+  
     title: 'AI-Powered Full Stack Web Development',
     org: 'Programming Hero — Batch 13',
-    period: 'Completed',
+    period: 'Ongoing',
     text: 'Hands-on training in React, Next.js, Node.js, Express.js, MongoDB, Firebase Authentication, Git, deployment, and modern web development practices.',
     link: null,
   },
   {
-    hash: 'c003de',
+  
     title: 'Continuous Learning',
     org: 'Self-directed',
     period: 'Present',

@@ -32,13 +32,19 @@ export const skillGroups = [
   },
   {
     category: 'Core Skills',
-    items: [
-      { name: 'REST APIs' },
-      { name: 'CRUD Operations' },
-      { name: 'Responsive Web Design' },
-      { name: 'Component-Based Development' },
-      { name: 'Authentication & Authorization' },
-      { name: 'Deployment' },
-    ],
+      items: [
+    { name: 'Responsive Web Design' },
+    { name: 'RESTful APIs' },
+    { name: 'CRUD Operations' },
+    { name: 'Authentication & Authorization' },
+    { name: 'Component-Based Development' },
+    { name: 'State Management' },
+    { name: 'Performance Optimization' },
+    { name: 'Deployment & Hosting' },
+    { name: 'Git Version Control' },
+    { name: 'Debugging' },
+    { name: 'Problem Solving' },
+    { name: 'Clean Code' },
+  ],
   },
 ];
