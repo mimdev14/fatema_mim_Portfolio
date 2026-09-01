@@ -11,7 +11,7 @@ export const skillGroups = [
     ],
   },
   {
-    {
+    
   category: 'Backend',
   items: [
     { name: 'Node.js', url: 'https://nodejs.org', icon: 'SiNodedotjs', color: '#5FA04E' },
