@@ -10,17 +10,18 @@ export const skillGroups = [
       { name: 'Tailwind CSS', url: 'https://tailwindcss.com', icon: 'SiTailwindcss', color: '#06B6D4' },
     ],
   },
-  {
+  
     
-  category: 'Backend',
-  items: [
-    { name: 'Node.js', url: 'https://nodejs.org', icon: 'SiNodedotjs', color: '#5FA04E' },
-    { name: 'Express.js', url: 'https://expressjs.com', icon: 'SiExpress', color: '#000000' },
-    { name: 'MongoDB', url: 'https://www.mongodb.com', icon: 'SiMongodb', color: '#47A248' },
-    { name: 'Firebase Auth', url: 'https://firebase.google.com/docs/auth', icon: 'SiFirebase', color: '#FFCA28' },
-    { name: 'Better Auth', url: 'https://www.better-auth.com', icon: 'SiBetterauth', color: '#000000' },
-  ],
-},
+   {
+    category: 'Backend',
+    items: [
+      { name: 'Node.js', url: 'https://nodejs.org', icon: 'SiNodedotjs', color: '#5FA04E' },
+      { name: 'Express.js', url: 'https://expressjs.com', icon: 'SiExpress', color: '#000000' },
+      { name: 'MongoDB', url: 'https://www.mongodb.com', icon: 'SiMongodb', color: '#47A248' },
+      { name: 'Firebase Auth', url: 'https://firebase.google.com/docs/auth', icon: 'SiFirebase', color: '#FFCA28' }, 
+    ], 
+  },
+
   {
     category: 'Tools & Platforms',
     items: [
