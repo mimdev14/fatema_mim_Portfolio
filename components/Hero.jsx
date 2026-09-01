@@ -5,11 +5,10 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 
 const roles = [
-  'Web Developer',
+  'Full-Stack Developer',
   'Frontend Developer',
   'React Developer',
   'Next.js Developer',
-  'Aspiring Full-Stack Developer',
 ];
 
 const pills = ['React', 'Next.js', 'Node.js', 'Express.js', 'MongoDB'];
