@@ -21,6 +21,7 @@ const stats = [
   { value: '5+', label: 'Projects Built' },
   { value: '10+', label: 'Technologies' },
   { value: '2026', label: 'CSE Graduate' },
+  { value: '100%', label: 'Continuous Learning' },
 ];
 
 const fadeUp = {
