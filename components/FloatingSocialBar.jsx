@@ -6,7 +6,11 @@ import { FiGithub, FiLinkedin, FiMail } from 'react-icons/fi';
 const socials = [
   { icon: FiGithub, href: 'https://github.com/mimdev14', label: 'GitHub' },
   { icon: FiLinkedin, href: 'https://www.linkedin.com/in/fatemaaktermim/', label: 'LinkedIn' },
-  { icon: FiMail, href: 'mailto:fatemaaktermim1031@gmail.com', label: 'Email' },
+  {
+    icon: FiMail,
+    href: 'https://mail.google.com/mail/?view=cm&fs=1&to=fatemaaktermim1031@gmail.com',
+    label: 'Email',
+  },
 ];
 
 export default function FloatingSocialBar() {

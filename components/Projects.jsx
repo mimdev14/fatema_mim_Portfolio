@@ -14,7 +14,7 @@ export default function Projects() {
           and repositories are being added as each project is finalized.
         </p>
 
-        <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, i) => (
             <ProjectCard key={project.slug} project={project} index={i} />
           ))}

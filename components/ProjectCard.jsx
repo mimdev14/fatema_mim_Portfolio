@@ -3,7 +3,7 @@
 import { useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import Link from 'next/link';
-import { FiArrowUpRight } from 'react-icons/fi';
+import { FiArrowUpRight, FiGithub } from 'react-icons/fi';
 
 export default function ProjectCard({ project, index }) {
   const ref = useRef(null);
@@ -80,13 +80,27 @@ export default function ProjectCard({ project, index }) {
           ))}
         </div>
 
-        <Link
-          href={`/projects/${project.slug}`}
-          className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-ink group-hover:text-signal transition-colors"
-        >
-          View Details
-          <FiArrowUpRight className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-        </Link>
+              <div className="mt-6 flex items-center justify-between">
+          <Link
+            href={`/projects/${project.slug}`}
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-ink group-hover:text-signal transition-colors"
+          >
+            View Details
+            <FiArrowUpRight className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </Link>
+          {project.clientRepo && (
+            <a
+              href={project.clientRepo}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              aria-label={`${project.name} GitHub repository`}
+              className="text-muted hover:text-signal transition-colors"
+            >
+              <FiGithub size={18} />
+            </a>
+          )}
+        </div>
       </div>
     </motion.div>
   );

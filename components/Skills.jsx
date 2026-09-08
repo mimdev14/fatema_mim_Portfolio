@@ -10,15 +10,20 @@ import {
   SiTailwindcss,
   SiNodedotjs,
   SiExpress,
+  SiJsonwebtokens,
   SiMongodb,
+  SiBetterauth,
   SiFirebase,
+  SiGoogle,
   SiGit,
   SiGithub,
+  SiPostman,
   SiVercel,
   SiNetlify,
   SiVite,
+  SiFigma,
 } from 'react-icons/si';
-import { VscVscode } from 'react-icons/vsc';
+
 import { skillGroups } from '@/data/skills';
 
 const iconMap = {
@@ -30,14 +35,18 @@ const iconMap = {
   SiTailwindcss,
   SiNodedotjs,
   SiExpress,
+  SiJsonwebtokens,
   SiMongodb,
+  SiBetterauth,
   SiFirebase,
+  SiGoogle,
   SiGit,
   SiGithub,
+  SiPostman,
   SiVercel,
   SiNetlify,
   SiVite,
-  VscVscode,
+  SiFigma,
 };
 
 export default function Skills() {

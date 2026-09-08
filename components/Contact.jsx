@@ -13,8 +13,8 @@ const cards = [
   {
     icon: FiPhone,
     label: 'Phone',
-    value: '+880 1955-390163',
-    href: 'tel:+8801955390163',
+    value: '+880 1767727556',
+    href: 'tel:+8801767727556',
   },
   {
     icon: FiMapPin,
@@ -73,30 +73,40 @@ export default function Contact() {
           })}
         </div>
 
-        <div className="mt-10 flex flex-wrap justify-center gap-4">
-          <a
-            href="mailto:fatemaaktermim1031@gmail.com"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-ink text-paper font-medium text-sm hover:bg-signal transition-colors"
-          >
-            <FiSend size={16} /> Email Me
-          </a>
-          <a
-            href="https://www.linkedin.com/in/fatemaaktermim/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-ink text-ink font-medium text-sm hover:border-signal hover:text-signal transition-colors"
-          >
-            <FiLinkedin size={16} /> Connect on LinkedIn
-          </a>
-          <a
-            href="https://github.com/mimdev14"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-ink text-ink font-medium text-sm hover:border-signal hover:text-signal transition-colors"
-          >
-            <FiGithub size={16} /> View GitHub
-          </a>
-        </div>
+       <div className="mt-10 flex flex-wrap justify-center gap-4">
+  {/* Email */}
+  <a
+    href="https://mail.google.com/mail/?view=cm&fs=1&to=fatemaaktermim1031@gmail.com"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-ink text-paper font-medium text-sm hover:bg-signal transition-colors"
+  >
+    <FiSend size={16} />
+    Email Me
+  </a>
+
+  {/* LinkedIn */}
+  <a
+    href="https://www.linkedin.com/in/fatemaaktermim/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-ink text-ink font-medium text-sm hover:border-signal hover:text-signal transition-colors"
+  >
+    <FiLinkedin size={16} />
+    Connect on LinkedIn
+  </a>
+
+  {/* GitHub */}
+  <a
+    href="https://github.com/mimdev14"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-ink text-ink font-medium text-sm hover:border-signal hover:text-signal transition-colors"
+  >
+    <FiGithub size={16} />
+    View GitHub
+  </a>
+</div>
       </div>
     </section>
   );

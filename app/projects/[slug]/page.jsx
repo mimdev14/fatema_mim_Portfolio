@@ -118,30 +118,48 @@ export default function ProjectDetail({ params }) {
                 </div>
               </div>
 
-              <div className="p-6 rounded-2xl bg-panel border border-line space-y-3">
-                <h2 className="font-mono text-xs text-signal mb-1">
-                  // links
-                </h2>
-
-                <a
-                  href={project.liveLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-sm font-medium text-ink hover:text-signal transition-colors"
-                >
-                  <FiExternalLink size={15} />
-                  Live Project
-                </a>
-
-                <a
-                  href={project.githubLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-sm font-medium text-ink hover:text-signal transition-colors"
-                >
-                  <FiGithub size={15} />
-                  GitHub Repository
-                </a>
+                           <div className="p-6 rounded-2xl bg-panel border border-line space-y-3">
+                <h2 className="font-mono text-xs text-signal mb-1">// links</h2>
+                {project.liveLink && (
+                  <a
+                    href={project.liveLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-sm font-medium text-ink hover:text-signal"
+                  >
+                    <FiExternalLink size={15} /> Live Client
+                  </a>
+                )}
+                {project.serverLiveLink && (
+                  <a
+                    href={project.serverLiveLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-sm font-medium text-ink hover:text-signal"
+                  >
+                    <FiExternalLink size={15} /> Live Server
+                  </a>
+                )}
+                {project.clientRepo && (
+                  <a
+                    href={project.clientRepo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-sm font-medium text-ink hover:text-signal"
+                  >
+                    <FiGithub size={15} /> Client Repository
+                  </a>
+                )}
+                {project.serverRepo && (
+                  <a
+                    href={project.serverRepo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-sm font-medium text-ink hover:text-signal"
+                  >
+                    <FiGithub size={15} /> Server Repository
+                  </a>
+                )}
               </div>
 
             </aside>

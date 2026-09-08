@@ -5,10 +5,11 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 
 const roles = [
-  'Full-Stack Developer',
+  'Full-Stack Web Developer',
   'Frontend Developer',
   'React Developer',
   'Next.js Developer',
+  'Backend Developer',
 ];
 
 const pills = ['React', 'Next.js', 'Node.js', 'Express.js', 'MongoDB'];
@@ -76,10 +77,8 @@ export default function Hero() {
           </div>
 
           <p className="mt-6 max-w-xl text-base md:text-lg text-muted leading-relaxed">
-            I&apos;m a Web Developer with strong expertise in frontend development,
-            specializing in React and Next.js. Currently expanding my backend skills
-            and exploring AI integration to build modern, scalable, and user-focused
-            web applications.
+                        I&apos;m a Full-Stack Web Developer who
+            enjoys turning ideas into practical, user-friendly software.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-2">
