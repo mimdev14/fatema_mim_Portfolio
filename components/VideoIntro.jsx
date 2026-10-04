@@ -6,7 +6,7 @@ const YOUTUBE_VIDEO_ID = 'XXXXXXXXXXX'; // replace with your video ID
 
 export default function VideoIntro() {
   return (
-    <section className="py-24 md:py-32">
+        <section id="intro" className="py-24 md:py-32">
       <div className="max-w-content mx-auto px-5 md:px-8">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
