@@ -58,9 +58,9 @@ export default function ProjectCard({ project, index }) {
             </span>
           </div>
         )}
-        {!project.hasDetails && (
+                {project.status && (
           <span className="absolute top-3 right-3 font-mono text-[10px] uppercase tracking-wide px-2 py-1 rounded-full bg-ink/85 text-paper">
-            Coming soon
+            {project.status}
           </span>
         )}
       </div>
