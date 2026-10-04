@@ -93,12 +93,13 @@ export default function Hero() {
           </div>
 
           <div className="mt-10 flex flex-wrap gap-4">
-            <a
+                       <a
               href="/resume.pdf"
-              download
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-6 py-3 rounded-full bg-ink text-paper font-medium text-sm hover:bg-signal transition-colors shadow-sm"
             >
-              Download Resume
+              View Resume
             </a>
             <a
               href="#projects"
