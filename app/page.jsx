@@ -3,6 +3,7 @@ import ScrollProgress from '@/components/ScrollProgress';
 import FloatingSocialBar from '@/components/FloatingSocialBar';
 import ScrollToTop from '@/components/ScrollToTop';
 import Hero from '@/components/Hero';
+import VideoIntro from '@/components/VideoIntro';
 import About from '@/components/About';
 import Skills from '@/components/Skills';
 import Projects from '@/components/Projects';
@@ -20,6 +21,7 @@ export default function Home() {
       <ScrollToTop />
       <main>
         <Hero />
+        <VideoIntro />
         <About />
         <Skills />
         <Projects />
