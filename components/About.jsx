@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { FiCompass, FiCode, FiZap } from 'react-icons/fi';
+
 const currently = [
   {
     title: 'Building',
@@ -15,6 +16,13 @@ const currently = [
     title: 'Exploring',
     text: 'Practical AI integration and how intelligent features can make software more useful, efficient, and capable.',
   },
+];
+
+const whatIBring = [
+  'Strong Frontend Development',
+  'Full-Stack Application Development',
+  'REST APIs & Authentication',
+  'Problem Solving & Debugging',
 ];
 
 const stats = [
@@ -32,7 +40,30 @@ const fadeUp = {
 export default function About() {
   return (
     <section id="about" className="py-24 md:py-32">
-                 <div className="space-y-8">
+      <div className="max-w-content mx-auto px-5 md:px-8">
+        <motion.p
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          variants={fadeUp}
+          className="section-eyebrow"
+        >
+          // about
+        </motion.p>
+        <motion.h2
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          variants={fadeUp}
+          transition={{ delay: 0.05 }}
+          className="font-display text-3xl md:text-4xl font-semibold text-ink mt-3 max-w-2xl"
+        >
+          Building Software, Exploring What&apos;s Next
+        </motion.h2>
+
+        <div className="mt-12 grid md:grid-cols-[1.4fr_1fr] gap-14">
+          <div>
+            <div className="space-y-8">
               <motion.div
                 initial="hidden"
                 whileInView="show"
@@ -101,6 +132,70 @@ export default function About() {
                 </div>
               </motion.div>
             </div>
+
+            <div className="mt-10 p-6 rounded-2xl bg-panel border border-line shadow-sm grid grid-cols-2 sm:grid-cols-4 gap-6">
+              {stats.map((s, i) => (
+                <motion.div
+                  key={s.label}
+                  initial={{ opacity: 0, y: 14 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08 }}
+                >
+                  <p className="font-display text-3xl font-semibold text-signal">
+                    {s.value}
+                  </p>
+                  <p className="text-xs font-mono text-muted mt-1">{s.label}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <p className="font-mono text-xs text-signal mb-6">// currently</p>
+            <div className="commit-rail pl-8 space-y-6">
+              {currently.map(({ title, text }, i) => (
+                <motion.div
+                  key={title}
+                  initial={{ opacity: 0, x: 12 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="relative"
+                >
+                  <span className="absolute -left-8 top-1 w-4 h-4 rounded-full bg-paper border-2 border-signal flex items-center justify-center">
+                    <span className="w-1.5 h-1.5 rounded-full bg-signal" />
+                  </span>
+                  <div className="text-ink font-medium">{title}</div>
+                  <p className="text-sm text-muted mt-1 leading-relaxed">{text}</p>
+                </motion.div>
+              ))}
+            </div>
+
+            <p className="font-mono text-xs text-muted mt-10 mb-3">// beyond coding</p>
+            <p className="text-sm text-muted leading-relaxed">
+              Reading, writing, taking care of my plants, spending time with
+              nature, and enjoying good stories through movies and books.
+            </p>
+
+            <p className="font-mono text-xs text-signal mt-10 mb-4">// what I bring</p>
+            <div className="flex flex-wrap gap-2">
+              {whatIBring.map((item, i) => (
+                <motion.span
+                  key={item}
+                  initial={{ opacity: 0, y: 8 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.06 }}
+                  className="text-xs font-medium px-3 py-1.5 rounded-full bg-signal-light text-signal-dark"
+                >
+                  {item}
+                </motion.span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
