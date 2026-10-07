@@ -1,5 +1,5 @@
 import { projects } from '@/data/projects';
-import ProjectCard from './ProjectCard';
+import ProjectMarquee from './ProjectMarquee';
 import FeaturedProjectCard from './FeaturedProjectCard';
 
 export default function Projects() {
@@ -23,12 +23,8 @@ export default function Projects() {
           <FeaturedProjectCard project={featured} />
         </div>
 
-        <p className="font-mono text-xs text-muted mt-14 mb-6">// client projects</p>
-        <div className="grid sm:grid-cols-2 gap-6">
-          {rest.map((project, i) => (
-            <ProjectCard key={project.slug} project={project} index={i} />
-          ))}
-        </div>
+               <p className="font-mono text-xs text-muted mt-14 mb-6">// client projects</p>
+        <ProjectMarquee projects={rest} />
       </div>
     </section>
   );
