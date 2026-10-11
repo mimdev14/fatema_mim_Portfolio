@@ -1,99 +1,74 @@
-'use client';
-
-import { useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { FiArrowUpRight } from 'react-icons/fi';
-import { motion, useReducedMotion } from 'framer-motion';
 
-function ProjectCard({ project, duplicate = false, index = 0 }) {
+function GalleryCard({ project, duplicate = false }) {
   return (
-    <motion.div
-      whileHover={duplicate ? undefined : { y: -7, scale: 1.005 }}
-      transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-      className="project-marquee__card-wrap"
-    >
+    <li className="projects-marquee-item w-[280px] shrink-0 sm:w-[340px] lg:w-[380px]">
       <Link
         href={`/projects/${project.slug}`}
         tabIndex={duplicate ? -1 : undefined}
-        aria-hidden={duplicate ? 'true' : undefined}
-        className="project-marquee__card group"
+        className="group flex h-full flex-col overflow-hidden rounded-2xl border border-[#334155] bg-[#1E293B] transition duration-300 hover:-translate-y-1 hover:border-[#10B981]/50 hover:shadow-[0_20px_45px_-28px_rgba(16,185,129,0.5)] focus-visible:-translate-y-1 focus-visible:border-[#10B981] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#10B981] motion-reduce:transition-none motion-reduce:hover:translate-y-0 motion-reduce:focus-visible:translate-y-0"
       >
-        <div className="project-marquee__image-wrap">
+        <div className="relative aspect-[16/10] overflow-hidden bg-[#0F172A]">
           {project.image ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
+            <Image
               src={project.image}
               alt={duplicate ? '' : `${project.name} project preview`}
-              className="project-marquee__image"
-              loading="lazy"
-              draggable="false"
+              fill
+              sizes="(min-width: 1024px) 380px, (min-width: 640px) 340px, 280px"
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105 group-focus-visible:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100 motion-reduce:group-focus-visible:scale-100"
             />
           ) : (
-            <div className="project-marquee__image-placeholder">Preview coming soon</div>
+            <div className="grid h-full place-items-center px-4 text-center font-display text-xl text-[#94A3B8]">
+              {project.name}
+            </div>
           )}
-          <div className="project-marquee__image-overlay" />
-          <span className="project-marquee__number">{String(index + 2).padStart(2, '0')}</span>
-          <span className="project-marquee__arrow" aria-hidden="true">
-            <FiArrowUpRight size={18} />
+
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0F172A]/80 via-[#0F172A]/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
+          />
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute right-3 top-3 grid h-9 w-9 -translate-x-1 translate-y-1 place-items-center rounded-full border border-[#334155] bg-[#0F172A]/85 text-[#10B981] opacity-0 transition duration-300 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:translate-y-0 group-focus-visible:opacity-100"
+          >
+            <FiArrowUpRight size={16} />
           </span>
         </div>
-        <div className="project-marquee__content">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <h4 className="font-display text-xl font-semibold tracking-[-0.035em] text-white">{project.name}</h4>
-              <p className="mt-1.5 line-clamp-2 text-sm leading-6 text-[#94A3B8]">{project.tagline}</p>
-            </div>
-            <span className="project-marquee__mini-arrow" aria-hidden="true">
-              <FiArrowUpRight size={16} />
-            </span>
-          </div>
-          <div className="mt-5 flex flex-wrap gap-1.5">
-            {project.techStack.slice(0, 3).map((tech) => (
-              <span key={tech} className="rounded border border-[#334155] px-2 py-1 font-mono text-[9px] tracking-wide text-[#94A3B8]">
-                {tech}
-              </span>
-            ))}
-          </div>
+
+        <div className="flex flex-1 flex-col gap-1.5 p-5">
+          <h4 className="font-display text-lg font-semibold text-white">{project.name}</h4>
+          {project.tagline && (
+            <p className="line-clamp-2 text-sm leading-6 text-[#94A3B8]">{project.tagline}</p>
+          )}
         </div>
       </Link>
-    </motion.div>
+    </li>
   );
 }
 
 export default function ProjectMarquee({ projects }) {
-  const [paused, setPaused] = useState(false);
-  const reduceMotion = useReducedMotion();
-  const repeatedProjects = [...projects, ...projects];
-
   if (!projects?.length) return null;
 
   return (
-    <div
-      className={`project-marquee ${paused ? 'is-paused' : ''} ${reduceMotion ? 'is-reduced-motion' : ''}`}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocusCapture={() => setPaused(true)}
-      onBlurCapture={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget)) setPaused(false);
-      }}
-    >
-      <div className="project-marquee__viewport" aria-label="More projects">
-        <div className="project-marquee__track">
-          {repeatedProjects.map((project, index) => {
-            const duplicate = index >= projects.length;
-            return (
-              <ProjectCard
-                key={`${project.slug}-${index}`}
-                project={project}
-                duplicate={duplicate}
-                index={index % projects.length}
-              />
-            );
-          })}
-        </div>
-      </div>
-      <div className="project-marquee__progress" aria-hidden="true">
-        <span />
+    <div role="region" aria-label="More projects gallery" className="projects-marquee py-6">
+      <div className="projects-marquee-track flex w-max">
+        <ul className="projects-marquee-group flex min-w-[100vw] shrink-0 gap-6 pr-6">
+          {projects.map((project) => (
+            <GalleryCard key={project.slug} project={project} />
+          ))}
+        </ul>
+        {/* Visual-only copy that makes the loop seamless; hidden from keyboard and screen readers */}
+        <ul
+          aria-hidden="true"
+          data-duplicate="true"
+          className="projects-marquee-group flex min-w-[100vw] shrink-0 gap-6 pr-6"
+        >
+          {projects.map((project) => (
+            <GalleryCard key={`${project.slug}-copy`} project={project} duplicate />
+          ))}
+        </ul>
       </div>
     </div>
   );
