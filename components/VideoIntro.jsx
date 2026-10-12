@@ -25,6 +25,15 @@ export default function VideoIntro() {
         >
           A Quick Hello, From Me
         </motion.h2>
+         <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.05 }}
+          className="font-display text-3xl md:text-4xl font-semibold text-ink mt-3 max-w-2xl"
+        >
+          comming soon
+        </motion.h2>
 
         <motion.div
           initial={{ opacity: 0, y: 24 }}
