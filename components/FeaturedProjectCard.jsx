@@ -14,6 +14,7 @@ import { FiArrowUpRight } from 'react-icons/fi';
 
 const EASE = [0.22, 1, 0.36, 1];
 const MAX_BADGES = 6;
+const TILT_DEGREES = 1.5; // keep this small: the card is very wide
 
 const container = {
   hidden: { opacity: 0, y: 32 },
@@ -43,16 +44,9 @@ export default function FeaturedProjectCard({ project }) {
   // Pointer position lives in motion values, so moving the mouse never re-renders React.
   const px = useMotionValue(0);
   const py = useMotionValue(0);
-  const rotateX = useSpring(useTransform(py, [-0.5, 0.5], [3, -3]), {
-    stiffness: 140,
-    damping: 18,
-    mass: 0.4,
-  });
-  const rotateY = useSpring(useTransform(px, [-0.5, 0.5], [-3, 3]), {
-    stiffness: 140,
-    damping: 18,
-    mass: 0.4,
-  });
+  const spring = { stiffness: 90, damping: 22, mass: 0.6 };
+  const rotateX = useSpring(useTransform(py, [-0.5, 0.5], [TILT_DEGREES, -TILT_DEGREES]), spring);
+  const rotateY = useSpring(useTransform(px, [-0.5, 0.5], [-TILT_DEGREES, TILT_DEGREES]), spring);
 
   // Tilt only for a fine pointer with hover (desktop) and never for reduced motion.
   useEffect(() => {
@@ -62,6 +56,26 @@ export default function FeaturedProjectCard({ project }) {
     mq.addEventListener('change', update);
     return () => mq.removeEventListener('change', update);
   }, [reduce]);
+
+  // Always return to centre: when the page scrolls (the card moves under a still cursor,
+  // so no pointer event fires) or the window loses focus. Passive, never blocks scrolling.
+  useEffect(() => {
+    if (!canTilt) {
+      px.set(0);
+      py.set(0);
+      return undefined;
+    }
+    const recentre = () => {
+      px.set(0);
+      py.set(0);
+    };
+    window.addEventListener('scroll', recentre, { passive: true });
+    window.addEventListener('blur', recentre);
+    return () => {
+      window.removeEventListener('scroll', recentre);
+      window.removeEventListener('blur', recentre);
+    };
+  }, [canTilt, px, py]);
 
   function handlePointerMove(e) {
     if (!canTilt || e.pointerType !== 'mouse' || !ref.current) return;
@@ -81,16 +95,22 @@ export default function FeaturedProjectCard({ project }) {
   const titleId = `featured-${project.slug}-title`;
 
   return (
-    <motion.article
+    // The wrapper never moves, so measuring the pointer against it is stable.
+    // (Measuring the rotating card itself made the tilt feed back on itself.)
+    <div
       ref={ref}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handlePointerLeave}
+      onPointerCancel={handlePointerLeave}
+      className="[perspective:1400px]"
+    >
+    <motion.article
       aria-labelledby={titleId}
       variants={container}
       initial={reduce ? 'visible' : 'hidden'}
       whileInView="visible"
       viewport={{ once: true, amount: 0.25 }}
-      onPointerMove={handlePointerMove}
-      onPointerLeave={handlePointerLeave}
-      style={canTilt ? { rotateX, rotateY, transformPerspective: 1200 } : undefined}
+      style={canTilt ? { rotateX, rotateY } : undefined}
       className="group relative grid overflow-hidden rounded-3xl border border-[#334155] bg-[#1E293B] transition-[border-color,box-shadow] duration-500 focus-within:border-[#10B981]/50 hover:border-[#10B981]/40 hover:shadow-[0_40px_90px_-50px_rgba(16,185,129,0.45)] lg:grid-cols-12"
     >
       <div
@@ -207,5 +227,6 @@ export default function FeaturedProjectCard({ project }) {
         </div>
       </motion.div>
     </motion.article>
+    </div>
   );
 }
