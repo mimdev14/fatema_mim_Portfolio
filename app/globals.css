@@ -126,7 +126,7 @@ textarea:focus-visible {
 }
 
 .projects-marquee-track {
-  animation: projects-marquee 40s linear infinite;
+  animation: projects-marquee 80s linear infinite;
   will-change: transform;
 }
 
@@ -161,10 +161,8 @@ textarea:focus-visible {
     animation: none;
     will-change: auto;
   }
-  .projects-marquee-group {
-    min-width: 0;
-  }
-  .projects-marquee-group[data-duplicate="true"] {
+   .projects-marquee-group[data-duplicate="true"],
+  .projects-marquee-item[data-repeat="true"] {
     display: none;
   }
   .projects-marquee-item {
@@ -172,7 +170,9 @@ textarea:focus-visible {
   }
 }
 
-@media ((hover: none), (pointer: coarse), (prefers-reduced-motion: reduce)) and (min-width: 768px) {
+@media (hover: none) and (min-width: 768px),
+  (pointer: coarse) and (min-width: 768px),
+  (prefers-reduced-motion: reduce) and (min-width: 768px) {
   .projects-marquee {
     --gutter: max(2rem, calc((100% - 1180px) / 2 + 2rem));
   }

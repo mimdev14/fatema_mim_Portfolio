@@ -2,22 +2,30 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FiArrowUpRight } from 'react-icons/fi';
 
-function GalleryCard({ project, duplicate = false }) {
+// Each half of the loop holds the project set this many times, so it is always wider
+// than the screen (4 cards is only ~1,640px) and the cards stay evenly spaced.
+const REPEATS = 2;
+
+function GalleryCard({ project, decorative = false, repeat = false }) {
   return (
-    <li className="projects-marquee-item w-[280px] shrink-0 sm:w-[340px] lg:w-[380px]">
+    <li
+      aria-hidden={decorative ? 'true' : undefined}
+      data-repeat={repeat ? 'true' : undefined}
+      className="projects-marquee-item w-[280px] shrink-0 sm:w-[340px] lg:w-[380px]"
+    >
       <Link
         href={`/projects/${project.slug}`}
-        tabIndex={duplicate ? -1 : undefined}
+        tabIndex={decorative ? -1 : undefined}
         className="group flex h-full flex-col overflow-hidden rounded-2xl border border-[#334155] bg-[#1E293B] transition duration-300 hover:-translate-y-1 hover:border-[#10B981]/50 hover:shadow-[0_20px_45px_-28px_rgba(16,185,129,0.5)] focus-visible:-translate-y-1 focus-visible:border-[#10B981] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#10B981] motion-reduce:transition-none motion-reduce:hover:translate-y-0 motion-reduce:focus-visible:translate-y-0"
       >
-        <div className="relative aspect-[16/10] overflow-hidden bg-[#0F172A]">
+        <div className="relative aspect-[2/1] overflow-hidden bg-[#0F172A]">
           {project.image ? (
             <Image
               src={project.image}
-              alt={duplicate ? '' : `${project.name} project preview`}
+              alt={decorative ? '' : `${project.name} project preview`}
               fill
               sizes="(min-width: 1024px) 380px, (min-width: 640px) 340px, 280px"
-              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105 group-focus-visible:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100 motion-reduce:group-focus-visible:scale-100"
+              className="object-cover object-left-top transition-transform duration-700 ease-out group-hover:scale-105 group-focus-visible:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100 motion-reduce:group-focus-visible:scale-100"
             />
           ) : (
             <div className="grid h-full place-items-center px-4 text-center font-display text-xl text-[#94A3B8]">
@@ -48,27 +56,36 @@ function GalleryCard({ project, duplicate = false }) {
   );
 }
 
+function Group({ projects, duplicate = false }) {
+  return (
+    <ul
+      aria-hidden={duplicate ? 'true' : undefined}
+      data-duplicate={duplicate ? 'true' : undefined}
+      className="projects-marquee-group flex shrink-0 gap-6 pr-6"
+    >
+      {Array.from({ length: REPEATS }).flatMap((_, rep) =>
+        projects.map((project) => (
+          <GalleryCard
+            key={`${project.slug}-${rep}`}
+            project={project}
+            repeat={rep > 0}
+            // Only the very first set is real content; every other copy is visual-only
+            decorative={duplicate || rep > 0}
+          />
+        ))
+      )}
+    </ul>
+  );
+}
+
 export default function ProjectMarquee({ projects }) {
   if (!projects?.length) return null;
 
   return (
     <div role="region" aria-label="More projects gallery" className="projects-marquee py-6">
       <div className="projects-marquee-track flex w-max">
-        <ul className="projects-marquee-group flex min-w-[100vw] shrink-0 gap-6 pr-6">
-          {projects.map((project) => (
-            <GalleryCard key={project.slug} project={project} />
-          ))}
-        </ul>
-        {/* Visual-only copy that makes the loop seamless; hidden from keyboard and screen readers */}
-        <ul
-          aria-hidden="true"
-          data-duplicate="true"
-          className="projects-marquee-group flex min-w-[100vw] shrink-0 gap-6 pr-6"
-        >
-          {projects.map((project) => (
-            <GalleryCard key={`${project.slug}-copy`} project={project} duplicate />
-          ))}
-        </ul>
+        <Group projects={projects} />
+        <Group projects={projects} duplicate />
       </div>
     </div>
   );
