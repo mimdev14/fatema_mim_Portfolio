@@ -135,27 +135,45 @@ textarea:focus-visible {
   animation-play-state: paused;
 }
 
+/* Slim, themed scrollbar (replaces the default Windows bar with arrow buttons) */
+.projects-marquee::-webkit-scrollbar { height: 6px; }
+.projects-marquee::-webkit-scrollbar-track { background: transparent; }
+.projects-marquee::-webkit-scrollbar-thumb { background: #334155; border-radius: 999px; }
+.projects-marquee::-webkit-scrollbar-thumb:hover { background: #10B981; }
+.projects-marquee::-webkit-scrollbar-button { display: none; }
+
 /* Touch devices and reduced-motion users: no auto-movement, native horizontal scrolling instead */
 @media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
   .projects-marquee {
+    /* Start the first card on the same left edge as the section heading */
+    --gutter: 1.25rem;
+    padding-inline: var(--gutter);
+    scroll-padding-inline: var(--gutter);
     overflow-x: auto;
     overscroll-behavior-x: contain;
     scroll-snap-type: x proximity;
     -webkit-mask-image: none;
     mask-image: none;
     scrollbar-width: thin;
+    scrollbar-color: #334155 transparent;
   }
   .projects-marquee-track {
     animation: none;
     will-change: auto;
   }
   .projects-marquee-group {
-    padding-left: 1.25rem;
+    min-width: 0;
   }
   .projects-marquee-group[data-duplicate="true"] {
     display: none;
   }
   .projects-marquee-item {
     scroll-snap-align: start;
+  }
+}
+
+@media ((hover: none), (pointer: coarse), (prefers-reduced-motion: reduce)) and (min-width: 768px) {
+  .projects-marquee {
+    --gutter: max(2rem, calc((100% - 1180px) / 2 + 2rem));
   }
 }
