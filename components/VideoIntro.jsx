@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 
-const YOUTUBE_VIDEO_ID = 'XXXXXXXXXXX'; // replace with your video ID
+const YOUTUBE_VIDEO_ID = '41HjL41x-kk'; // replace with your video ID
 
 export default function VideoIntro() {
   return (
@@ -25,15 +25,7 @@ export default function VideoIntro() {
         >
           A Quick Hello, From Me
         </motion.h2>
-         <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.05 }}
-          className="font-display text-3xl md:text-4xl font-semibold text-ink mt-3 max-w-2xl"
-        >
-          comming soon
-        </motion.h2>
+        
 
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -44,7 +36,7 @@ export default function VideoIntro() {
         >
           <iframe
             className="w-full h-full"
-            src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}`}
+            src={`[https://www.youtube.com/embed/41HjL41x-kk](https://www.youtube.com/embed/41HjL41x-kk)${YOUTUBE_VIDEO_ID}`}
             title="Fatema Akter Mim — Introduction"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen

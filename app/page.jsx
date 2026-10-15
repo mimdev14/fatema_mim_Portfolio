@@ -21,7 +21,7 @@ export default function Home() {
       <ScrollToTop />
       <main>
         <Hero />
-        {/* <VideoIntro /> */}
+        <VideoIntro />
         <About />
         <Skills />
         <Projects />
