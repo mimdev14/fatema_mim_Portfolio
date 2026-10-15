@@ -119,10 +119,19 @@ textarea:focus-visible {
   to { transform: translate3d(-50%, 0, 0); }
 }
 
+/* Moving mode (mouse / trackpad): the strip is never scrolled by hand */
 .projects-marquee {
   overflow: hidden;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: pan-y;
   -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
   mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+
+.projects-marquee a,
+.projects-marquee img {
+  -webkit-user-drag: none;
 }
 
 .projects-marquee-track {
@@ -142,16 +151,17 @@ textarea:focus-visible {
 .projects-marquee::-webkit-scrollbar-thumb:hover { background: #10B981; }
 .projects-marquee::-webkit-scrollbar-button { display: none; }
 
-/* Touch devices and reduced-motion users: no auto-movement, native horizontal scrolling instead */
+/* Touch devices and reduced-motion users: no auto-movement, normal smooth scrolling instead.
+   No scroll-snap (it threw the strip to the far left or right), and the cards sit centred
+   whenever they fit on screen. */
 @media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
   .projects-marquee {
-    /* Start the first card on the same left edge as the section heading */
-    --gutter: 1.25rem;
-    padding-inline: var(--gutter);
-    scroll-padding-inline: var(--gutter);
+    --gutter: clamp(1.25rem, 4vw, 2rem);
     overflow-x: auto;
     overscroll-behavior-x: contain;
-    scroll-snap-type: x proximity;
+    touch-action: auto;
+    -webkit-user-select: auto;
+    user-select: auto;
     -webkit-mask-image: none;
     mask-image: none;
     scrollbar-width: thin;
@@ -160,20 +170,11 @@ textarea:focus-visible {
   .projects-marquee-track {
     animation: none;
     will-change: auto;
+    margin-inline: auto;
+    padding-inline: var(--gutter);
   }
-   .projects-marquee-group[data-duplicate="true"],
+  .projects-marquee-group[data-duplicate="true"],
   .projects-marquee-item[data-repeat="true"] {
     display: none;
-  }
-  .projects-marquee-item {
-    scroll-snap-align: start;
-  }
-}
-
-@media (hover: none) and (min-width: 768px),
-  (pointer: coarse) and (min-width: 768px),
-  (prefers-reduced-motion: reduce) and (min-width: 768px) {
-  .projects-marquee {
-    --gutter: max(2rem, calc((100% - 1180px) / 2 + 2rem));
   }
 }

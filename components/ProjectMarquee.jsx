@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { FiArrowUpRight } from 'react-icons/fi';
@@ -5,6 +7,23 @@ import { FiArrowUpRight } from 'react-icons/fi';
 // Each half of the loop holds the project set this many times, so it is always wider
 // than the screen (4 cards is only ~1,640px) and the cards stay evenly spaced.
 const REPEATS = 2;
+
+// In the moving mode the strip is overflow:hidden and must never end up scrolled sideways
+// (dragging, text selection and focus jumps can all do that, and it then never comes back).
+// In touch / reduced-motion mode it is overflow:auto and scrolls normally, so leave it alone.
+function keepAtStart(e) {
+  const el = e.currentTarget;
+  if (getComputedStyle(el).overflowX === 'hidden' && !el.contains(document.activeElement)) {
+    el.scrollLeft = 0;
+  }
+}
+
+function releaseFocus(e) {
+  if (e.currentTarget.contains(e.relatedTarget)) return;
+  if (getComputedStyle(e.currentTarget).overflowX === 'hidden') {
+    e.currentTarget.scrollLeft = 0;
+  }
+}
 
 function GalleryCard({ project, decorative = false, repeat = false }) {
   return (
@@ -15,6 +34,7 @@ function GalleryCard({ project, decorative = false, repeat = false }) {
     >
       <Link
         href={`/projects/${project.slug}`}
+        draggable={false}
         tabIndex={decorative ? -1 : undefined}
         className="group flex h-full flex-col overflow-hidden rounded-2xl border border-[#334155] bg-[#1E293B] transition duration-300 hover:-translate-y-1 hover:border-[#10B981]/50 hover:shadow-[0_20px_45px_-28px_rgba(16,185,129,0.5)] focus-visible:-translate-y-1 focus-visible:border-[#10B981] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#10B981] motion-reduce:transition-none motion-reduce:hover:translate-y-0 motion-reduce:focus-visible:translate-y-0"
       >
@@ -23,6 +43,7 @@ function GalleryCard({ project, decorative = false, repeat = false }) {
             <Image
               src={project.image}
               alt={decorative ? '' : `${project.name} project preview`}
+              draggable={false}
               fill
               sizes="(min-width: 1024px) 380px, (min-width: 640px) 340px, 280px"
               className="object-cover object-left-top transition-transform duration-700 ease-out group-hover:scale-105 group-focus-visible:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100 motion-reduce:group-focus-visible:scale-100"
@@ -82,7 +103,13 @@ export default function ProjectMarquee({ projects }) {
   if (!projects?.length) return null;
 
   return (
-    <div role="region" aria-label="More projects gallery" className="projects-marquee py-6">
+    <div
+      role="region"
+      aria-label="More projects gallery"
+      onScroll={keepAtStart}
+      onBlur={releaseFocus}
+      className="projects-marquee py-6"
+    >
       <div className="projects-marquee-track flex w-max">
         <Group projects={projects} />
         <Group projects={projects} duplicate />
